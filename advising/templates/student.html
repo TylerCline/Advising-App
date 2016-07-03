@@ -1,0 +1,15 @@
+<html>
+<body>
+<h1>Student Data Page</h1>
+{% for obj in student_data %}
+
+	{{ obj.PID }}
+	{{ obj.Email }}
+	{{ obj.Fname }}
+	{{ obj.Lname }}
+	{{ obj.Years_To_Completion }}
+	{{ obj.AdvisorEmail }}<br/>
+	
+{% endfor %}
+</body>
+</html>

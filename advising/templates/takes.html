@@ -1,0 +1,13 @@
+<html>
+<body>
+<h1>Takes Data Page</h1>
+{% for obj in takes_data %}
+
+	{{ obj.PID }}
+	{{ obj.Course_Title }}
+	{{ obj.Grade_Received }}
+	{{ obj.Enrolled }}<br/>
+	
+{% endfor %}
+</body>
+</html>
