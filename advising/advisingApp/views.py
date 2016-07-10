@@ -4,6 +4,9 @@ from .models import (Advisor, Departments, Students,
 	Degrees, Prerequisites, Courses, takes, chooses, contains
 	)
 # Create your views here.
+def home(request):
+	return render(request, 'home.html', {})
+	
 def advisor(request):
 	queryset = Advisor.objects.all()
 	context = {

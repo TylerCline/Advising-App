@@ -44,21 +44,21 @@ def validate_Dname(title):
 	for i in range(0, len(names)):
 		if title == names[i]:
 			matched = True
-		elif i == len(i) and matched == False:
+		elif i == len(names) and matched == False:
 			raise ValidationError(
             _('%(title)s is not a degree offered by Russ College'),
             params={'title': title},
         )
 
 def validate_PID(PID):
-	if PID[0] != 'P':
+	if PID[0] == 'P':
 		raise ValidationError(
-			_('%(PID)s must begin with a P'),
+			_('%(PID)s Omitt the P'),
             params={'PID': PID},
             )
-	elif len(PID) != 10:
+	elif len(PID) != 9:
 		raise ValidationError(
-            _('%(PID)s Is not long enough. Must have length 10. (P followed by 9 numbers'),
+            _('%(PID)s Is not long enough. Must have length 9. (P followed by 9 numbers'),
             params={'PID': PID},
         )
 
@@ -93,20 +93,26 @@ class Advisor(models.Model):
 	Fname = models.CharField(max_length=50)
 	Lname = models.CharField(max_length=50)
 	Title = models.CharField(max_length=50)
+	def __unicode__(self):
+		return self.Fname + " " + self.Lname
 
 
 class Departments(models.Model):
 	Name = models.TextField(max_length=100)
 	DEPT_NUM = models.IntegerField(primary_key=True)
 	Building = models.CharField(max_length=100)
+	def __unicode__(self):
+		return self.Name
 
 class Students(models.Model):
 	PID = models.CharField(max_length=9, primary_key=True, validators=[validate_PID])
 	Email = models.EmailField(max_length=100)
 	Fname = models.CharField(max_length=50)
 	Lname = models.CharField(max_length=50)
-	Years_To_Completion = models.IntegerField()
+	Years_To_Completion = models.DecimalField(max_digits=5, decimal_places=2)
 	AdvisorEmail = models.ForeignKey('Advisor', on_delete=models.CASCADE)
+	def __unicode__(self):
+		return self.PID
 
 class Degrees(models.Model):
 	TITLE = models.CharField(max_length=50, primary_key=True, 
@@ -114,7 +120,8 @@ class Degrees(models.Model):
 	About = models.TextField()
 	Requiured_Credits = models.IntegerField()
 	Deparment_Name = models.ForeignKey('Departments', on_delete=models.CASCADE)
-
+	def __unicode__(self):
+		return self.TITLE
 #Ask professor. The algorithm calls for creating a 1 to many relationship
 # for multi valued attributes, which is what prerequisite is.
 # it was an attribute for courses.
@@ -123,12 +130,13 @@ class Prerequisites(models.Model):
 	Course = models.ForeignKey('Courses', on_delete=models.CASCADE)
 
 class Courses (models.Model):
-	TITLE = models.CharField(max_length=10, primary_key=True, 
-							validators=[validate_Cname])
+	TITLE = models.CharField(max_length=10, primary_key=True, validators=[validate_Cname])
 	Type = models.CharField(max_length=20)
 	Code = models.CharField(max_length=20)
 	Grade_Needed = models.CharField(max_length=10, validators=[validate_Grade])
-	Credits = models.IntegerField(validators=validate_credits)
+	Credits = models.IntegerField(validators=[validate_credits])
+	def __unicode__(self):
+		return self.TITLE
 
 #****************************
 #The following models need composite keys made from the
@@ -154,10 +162,10 @@ class takes (models.Model):
 
 class chooses(models.Model):
 	class Meta:
-		unique_together = (('PID', 'Department_Title'),)
+		unique_together = (('PID', 'DegreeTitle'),)
 
 	PID = models.ForeignKey('Students', on_delete=models.CASCADE)
-	Department_Title = models.ForeignKey('Departments', on_delete=models.CASCADE)
+	DegreeTitle = models.ForeignKey('Degrees', on_delete=models.CASCADE)
 
 class contains(models.Model):
 	class Meta:

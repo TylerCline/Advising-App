@@ -1,13 +1,17 @@
 <html>
 <body>
+<a href="{% url 'home' %}"> home</a></br>
 <h1>Student Data Page</h1>
+
+PID | Email | First Name | Last Name | Years Left | Advisor
+</br>------------------------------------------------------------</br>
 {% for obj in student_data %}
 
-	{{ obj.PID }}
-	{{ obj.Email }}
-	{{ obj.Fname }}
-	{{ obj.Lname }}
-	{{ obj.Years_To_Completion }}
+	{{ obj.PID }} | 
+	{{ obj.Email }} | 
+	{{ obj.Fname }} | 
+	{{ obj.Lname }} | 
+	{{ obj.Years_To_Completion }} | 
 	{{ obj.AdvisorEmail }}<br/>
 	
 {% endfor %}

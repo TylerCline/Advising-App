@@ -1,12 +1,15 @@
 <html>
 <body>
+<a href="{% url 'home' %}"> home</a></br>
 <h1>Course Data Page</h1>
+Title | Type | Code | Grade Needed | Credits
+</br>-----------------------------------------</br>
 {% for obj in course_data %}
 
-	{{ obj.TITLE }}
-	{{ obj.Type }}
-	{{ obj.Code }}
-	{{ obj.Grade_Needed }}
+	{{ obj.TITLE }} | 
+	{{ obj.Type }} | 
+	{{ obj.Code }} | 
+	{{ obj.Grade_Needed }} | 
 	{{ obj.Credits }}<br/>
 	
 {% endfor %}

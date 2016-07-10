@@ -1,12 +1,14 @@
 <html>
 <body>
+<a href="{% url 'home' %}"> home</a></br>
 <h1>Advisor Data Page</h1>
+email__first Name__Last name__title</br>----------------------</br>
 {% for obj in advisor_data %}
 
-	{{ obj.EMAIL }}
-	{{ obj.Fname }}
-	{{ obj.Lname }}
-	{{ obj.Title }}<br/>
+	{{ obj.EMAIL }}  |  
+	{{ obj.Fname }}  |
+	{{ obj.Lname }}  |
+	{{ obj.Title }}<br/><br/>
 	
 {% endfor %}
 </body>

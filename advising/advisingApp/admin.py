@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Advisor
+from .models import Advisor 
 from .models import Departments
 from .models import Students
 from .models import Degrees
@@ -67,7 +67,7 @@ class TakeAdmin(admin.ModelAdmin):
 		model = takes
 
 class ChooseAdmin(admin.ModelAdmin):
-	list_display = ['PID', 'Department_Title']
+	list_display = ['PID', 'DegreeTitle']
 	list_display_links = ['PID']
 	list_filter = ['PID']
 	search_fields = ['PID']
