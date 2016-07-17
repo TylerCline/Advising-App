@@ -1,8 +1,8 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from .views import (
-	home,
-	advisor,
+	base,
+	report,
 	student,
 	degree,
 	courses,
@@ -14,7 +14,7 @@ from .views import (
 	)
 
 urlpatterns = [
-    url(r'^advisor/$', advisor, name='advisor'),
+    url(r'^report/$', report, name='report'),
     url(r'^student/$', student, name='student'),
     url(r'^degree/$', degree, name='degree'),
     url(r'^courses/$', courses, name='courses'),
@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^Takes/$', Takes, name='Takes'),
     url(r'^Contains/$', Contains, name='Contains'),
     url(r'^Chooses/$', Chooses, name='Chooses'),
-    url(r'^home/$', home, name='home'),
+    url(r'^base/$', base, name='base'),
+    url(r'^accounts/', include('registration.backends.simple.urls'), name='accounts/register'),
 
 ]

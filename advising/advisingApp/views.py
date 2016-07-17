@@ -1,23 +1,32 @@
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from .models import (Advisor, Departments, Students,
 	Degrees, Prerequisites, Courses, takes, chooses, contains
 	)
+from .forms import StudentForm, TakesForm, ChoosesForm
 # Create your views here.
-def home(request):
+def base(request):
 	return render(request, 'home.html', {})
 	
-def advisor(request):
+def report(request):
 	queryset = Advisor.objects.all()
 	context = {
 		"advisor_data": queryset,
 	}
-	return render(request, 'advisor.html', context)
+	return render(request, 'report.html', context)
 
 def student(request):
-	queryset = Students.objects.all()
+	form = StudentForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			PID = form.cleaned_data['PID']
+			instance = form.save(commit=False)
+			instance.save()
+			return HttpResponseRedirect('/advisingApp/Chooses/')
 	context = {
-		"student_data": queryset,
+		"form": form,
 	}
 	return render(request, 'student.html', context)
 
@@ -50,9 +59,14 @@ def prerequisites(request):
 	return render(request, 'prerequisites.html', context)
 
 def Takes(request):
-	queryset = takes.objects.all()
+	form = TakesForm(request.POST or None)
+	if request.method== 'POST':
+		if form.is_valid():
+			instance = form.save(commit=False)
+			instance.save()
+			return HttpResponseRedirect('/advisingApp/base/')
 	context = {
-		"takes_data": queryset,
+		"form": form,
 	}
 	return render(request, 'takes.html', context)
 
@@ -64,8 +78,13 @@ def Contains(request):
 	return render(request, 'contains.html', context)
 
 def Chooses(request):
-	queryset = chooses.objects.all()
+	form = ChoosesForm(request.POST or None)
+	if request.method== 'POST':
+		if form.is_valid():
+			instance = form.save(commit=False)
+			instance.save()
+			return HttpResponseRedirect('/advisingApp/Takes/')
 	context = {
-		"chooses_data": queryset,
+		"form": form,
 	}
 	return render(request, 'chooses.html', context)

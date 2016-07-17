@@ -1,13 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{%block content %}
+{%if request.user.is_authenticated %}
 <html>
 <body>
-<a href="{% url 'home' %}"> home</a></br>
-<h1>Chooses Data Page</h1>
-Student_____Degree </br>-----------------</br>
-{% for obj in chooses_data %}
-    
-	{{ obj.PID }}  | 
-	{{ obj.DegreeTitle }}<br/>
-	
-{% endfor %}
+<h1>Choose Your Degree</h1>
+<form method='POST' action=''>
+{%csrf_token%}
+{{form|crispy}}
+<input type="submit" value='submit'>
+</form>
 </body>
 </html>
+{% endif %}
+{%endblock%}

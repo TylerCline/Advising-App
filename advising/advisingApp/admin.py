@@ -51,7 +51,7 @@ class PrereqAdmin(admin.ModelAdmin):
 		model = Prerequisites
 
 class CourseAdmin(admin.ModelAdmin):
-	list_display = ['TITLE', 'Type', 'Code', 'Grade_Needed', 'Credits']
+	list_display = ['TITLE', 'Type', 'Name', 'Grade_Needed', 'Credits']
 	list_display_links = ['TITLE']
 	list_filter = ['TITLE']
 	search_fields = ['TITLE']
@@ -59,26 +59,43 @@ class CourseAdmin(admin.ModelAdmin):
 		model = Courses
 
 class TakeAdmin(admin.ModelAdmin):
-	list_display = ['PID', 'Course_Title', 'Grade_Received', 'Enrolled']
-	list_display_links = ['PID']
+	list_display = ['Grade_Received', 'Enrolled']
+	# list_display_links = ['PID']
 	list_filter = ['PID', 'Course_Title']
 	search_fields = ['PID', 'Course_Title']
+	def pid(self):
+		return '\n '.join([a.PID for a in self.admins.all()])
+	def title(self):
+		return '\n'.join([a.Course_Title for a in self.admins.all()])
+	pid.short_description = "PID"
+	title.short_description = "Course_Title"
 	class Meta:
 		model = takes
 
 class ChooseAdmin(admin.ModelAdmin):
-	list_display = ['PID', 'DegreeTitle']
-	list_display_links = ['PID']
+	# list_display_links = ['PID']
 	list_filter = ['PID']
 	search_fields = ['PID']
+	def pid(self):
+		return '\n '.join([a.PID for a in self.admins.all()])
+	def title(self):
+		return '\n'.join([a.Degree_Title for a in self.admins.all()])
+	pid.short_description = "PID"
+	title.short_description = "Degree_Title"
 	class Meta:
 		model = chooses
 
 class ContainAdmin(admin.ModelAdmin):
-	list_display = ['Course_Title', 'Degree_Title']
-	list_display_links = ['Course_Title', 'Degree_Title']
+	# list_display = ['Course_Title', 'Degree_Title']
+	# list_display_links = ['Course_Title', 'Degree_Title']
 	list_filter = ['Course_Title', 'Degree_Title']
 	search_fields = ['Course_Title', 'Degree_Title']
+	def ctitle(self):
+		return ', '.join([a.Course_Title for a in self.admins.all()])
+	def dtitle(self):
+		return ', '.join([a.Degree_Title for a in self.admins.all()])
+	ctitle.short_description = "Course_Title"
+	dtitle.short_description = "Degree_Title"
 	class Meta:
 		model = contains
 

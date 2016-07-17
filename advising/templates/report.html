@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<html>
+<body>
+<h1>Student Report</h1>
+email__first Name__Last name__title</br>----------------------</br>
+{% for obj in advisor_data %}
+
+	{{ obj.EMAIL }}  |  
+	{{ obj.Fname }}  |
+	{{ obj.Lname }}  |
+	{{ obj.Title }}<br/><br/>
+	
+{% endfor %}
+</body>
+</html> 
+
+{% else %}
+<html>
+<body>Not Registered
+<a href='{% url "registration_register" %}'>Create account</a> or
+<a href='{% url "registration_register" %}'>login</a>
+to view your report.
+ </body>
+ </html>
+ {% endif %}
+  {% endblock %}

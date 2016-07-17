@@ -1,7 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <html>
 <body>
-<a href="{% url 'home' %}"> home</a></br>
-<h1>Degree Data Page</h1>
+<h1>Degrees</h1>
 Title | About | Credits | Department 
 </br>----------------------------------</br>
 {% for obj in degree_data %}
@@ -13,4 +15,5 @@ Title | About | Credits | Department
 	
 {% endfor %}
 </body>
-</html>
+</html> 
+{% endblock %}

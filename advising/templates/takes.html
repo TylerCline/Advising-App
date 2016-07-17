@@ -1,16 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{%block content %}
+{%if request.user.is_authenticated %}
 <html>
 <body>
-<a href="{% url 'home' %}"> home</a></br>
-<h1>Takes Data Page</h1>
-PID | Course Title | Grade | Enrolled?
-</br>------------------------------------------</br>
-{% for obj in takes_data %}
-
-	{{ obj.PID }} | 
-	{{ obj.Course_Title }} | 
-	{{ obj.Grade_Received }} | 
-	{{ obj.Enrolled }}<br/>
-	
-{% endfor %}
+<h1>Enter The courses You have taken</h1>
+<form method='POST' action=''>
+{%csrf_token%}
+{{form|crispy}}
+<input type="submit" value='submit'>
+</form>
 </body>
 </html>
+{% endif %}
+{%endblock%}

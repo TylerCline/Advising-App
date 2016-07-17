@@ -35,8 +35,15 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    #needed for django registration redux
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #third party apps
+    'crispy_forms',
+    #django registration redux used for accounts
+    'registration',
+    #my app
     'advisingApp',
 ]
 
@@ -122,5 +129,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticFiles", "staticRoot")
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "staticFiles", "myStatic"),
+
+    )
+
+#Using bootstrap 3, so this settings allows cripsy forms to
+#use the correct templates
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+#Settings for registration redux
+REGISTRATION_OPEN = True                # If True, users can register
+ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
+LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/accounts/login/'
+SITE_ID = 1

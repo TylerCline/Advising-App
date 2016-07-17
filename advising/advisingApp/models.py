@@ -131,10 +131,11 @@ class Prerequisites(models.Model):
 
 class Courses (models.Model):
 	TITLE = models.CharField(max_length=10, primary_key=True, validators=[validate_Cname])
-	Type = models.CharField(max_length=20)
-	Code = models.CharField(max_length=20)
+	Type = models.CharField(max_length=100)
+	Name = models.CharField(max_length=100)
 	Grade_Needed = models.CharField(max_length=10, validators=[validate_Grade])
 	Credits = models.IntegerField(validators=[validate_credits])
+	Tier = models.CharField(max_length=20)
 	def __unicode__(self):
 		return self.TITLE
 
@@ -152,24 +153,22 @@ class Courses (models.Model):
 # Credit:http://stackoverflow.com/questions/28712848/composite-primary-key-in-django
 #*****************************
 class takes (models.Model):
-	class Meta:
-		unique_together = (('PID', 'Course_Title'),)
+	# class Meta:
+	# 	unique_together = (('PID', 'Course_Title'),)
 
-	PID = models.ForeignKey('Students', on_delete=models.CASCADE)
-	Course_Title = models.ForeignKey('Courses', on_delete=models.CASCADE)
-	Grade_Received = models.CharField(max_length=3, validators=[validate_Grade])
-	Enrolled = models.BooleanField()
+	PID = models.ManyToManyField(Students)
+	Course_Title = models.ManyToManyField(Courses)
+	Grade_Received = models.CharField(blank = True, max_length=3, validators=[validate_Grade])
+	Enrolled = models.BooleanField(blank=True)
 
 class chooses(models.Model):
-	class Meta:
-		unique_together = (('PID', 'DegreeTitle'),)
-
-	PID = models.ForeignKey('Students', on_delete=models.CASCADE)
-	DegreeTitle = models.ForeignKey('Degrees', on_delete=models.CASCADE)
+	# class Meta:
+	# 	unique_together = (('PID', 'DegreeTitle'),)
+	PID = models.ManyToManyField(Students)
+	DegreeTitle = models.ForeignKey('Degrees', blank=True, default=1)
 
 class contains(models.Model):
-	class Meta:
-		unique_together = (('Course_Title', 'Degree_Title'),)
-
-	Course_Title = models.ForeignKey('Courses', on_delete=models.CASCADE)
-	Degree_Title = models.ForeignKey('Degrees', on_delete=models.CASCADE)
+	# class Meta:
+	# 	unique_together = (('Course_Title', 'Degree_Title'),)
+	Course_Title = models.ManyToManyField(Courses)
+	Degree_Title = models.ManyToManyField(Degrees)
