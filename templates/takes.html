@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{%block content %}
+{%if request.user.is_authenticated %}
+<html>
+<body>
+<h1>Enter The courses You have taken</h1>
+<form method='POST' action=''>
+{%csrf_token%}
+<!-- {{form|crispy}}
+<input type="submit" value='submit'>  -->
+{{ form.non_field_errors }}
+<div class="fieldWrapper">
+    {{ form.PID.errors }}
+    <label for="{{ form.PID.id_for_label }}">PID:</label>
+    {{ form.PID }}
+</div>
+<br></br>
+<div class="fieldWrapper">
+    {{ form.Tier1qs.errors }}
+    <label for="{{ form.Tier1qs.id_for_label }}">Tier1 Quantitative Skills :</label>
+    {{ form.Tier1qs }}
+</div>
+<div class="fieldWrapper">
+    {{ form.Tier1comp.errors }}
+    <label for="{{ form.Tier1comp.id_for_label }}">Tier 1 Composition     :</label>
+    {{ form.Tier1comp}}
+</div>
+<div class="fieldWrapper">
+    {{ form.Tier1jc.errors }}
+    <label for="{{ form.Tier1jc.id_for_label }}">Tier1 Junior Composition:</label>
+    {{ form.Tier1jc }}
+</div>
+<div class="fieldWrapper">
+    {{ form.CrossCulture.errors }}
+    <label for="{{ form.CrossCulture.id_for_label }}">Cross Cultural Perspective (2 hours):</label>
+    {{ form.CrossCulture }}
+</div>
+<div class="fieldWrapper">
+    {{ form.ScienceMath.errors }}
+    <label for="{{ form.ScienceMath.id_for_label }}">Science and Mathematics (2 hours):</label>
+    {{ form.ScienceMath }}
+</div>
+<div class="fieldWrapper">
+    {{ form.FineArts.errors }}
+    <label for="{{ form.FineArts.id_for_label }}">Fine Arts (2 hours):</label>
+    {{ form.FineArts }}
+</div>
+<div class="fieldWrapper">
+    {{ form.Humanities.errors }}
+    <label for="{{ form.Humanitites.id_for_label }}">Humanities and Literature (2 hours):</label>
+    {{ form.Humanities }}
+</div>
+<div class="fieldWrapper">
+    {{ form.NaturalScience.errors }}
+    <label for="{{ form.NaturalScience.id_for_label }}">Natural Science (2 hours):</label>
+    {{ form.NaturalScience }}
+</div>
+<div class="fieldWrapper">
+    {{ form.SocialScience.errors }}
+    <label for="{{ form.SocialScience.id_for_label }}">Social Sciences (2 hours):</label>
+    {{ form.SocialScience }}
+</div>
+<br></br>
+<div class="fieldWrapper">
+    {{ form.FreeElectives.errors }}
+    <label for="{{ form.FreeElectives.id_for_label }}">Free Electives (9 hours):</label>
+    {{ form.FreeElectives }}
+</div>
+<div class="fieldWrapper">
+    {{ form.Tier3.errors }}
+    <label for="{{ form.Tier3.id_for_label }}">Tier 3 Capstone (Variable hours):</label>
+    {{ form.Tier3 }}
+</div>
+<br></br>
+<br></br>
+<div class="fieldWrapper">
+    {{ form.Course_Title.errors }}
+    <label for="{{ form.Course_Title.id_for_label }}">Major Courses (Courses ending in -E are electives. Needs all courses without -E and 9 hours with -E:</label>
+    	{{ form.Course_Title }}
+</div>
+<br></br>
+<div class="fieldWrapper">
+    {{ form.Enrolled.errors }}
+    <label for="{{ form.Enrolled.id_for_label }}">Enrolled</label>
+    {{ form.Enrolled }}
+</div>
+<input class='btn btn-primary' type='submit' value='Sign Up' />
+</form>
+</body>
+</html>
+{% endif %}
+{%endblock%}

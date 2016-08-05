@@ -1,0 +1,50 @@
+<!-- Used to allow a user to browse degree programs. THe degree view will render this
+     Tyler Cline 2016 -->
+{% extends 'base.html' %}
+
+{% block jumbotron %}
+<style>
+{% block style %}
+.jumbotron {
+   background-color:#0E3D14;
+   color: #FFF;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+  background: -color:#0E3D14;
+  color: #FFF;
+
+}
+
+.textBox {
+	color: #333
+}
+{% endblock %}
+</style>
+<div class="jumbotron">
+<div class="container">
+<html>
+<body>
+<h1>Degree Browser</h1>
+<form method='GET' action=''>
+	<input class='textBox' type='text' name='q' placeholder="Search Courses" value='{{ request.GET.q }}'/>
+	<input class="btn btn-primary btn-lg" type='submit' value='Search'/>
+
+</form>
+
+{% for obj in degree_data %}
+
+	<h3>{{ obj.TITLE }}</h3>
+	<h4><li>Credit Hours: {{ obj.Required_Credits }}</li> </h4>
+	<h4><li>Department: {{ obj.Deparment_name }}</li> </h4>
+	<h4><li>Description: 
+		<p>{{ obj.About }}</p>
+	</li></h4></br>
+	
+{% endfor %}
+</body>
+</html> 
+</div>
+</div>
+{% endblock %}

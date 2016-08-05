@@ -1,0 +1,23 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block title %}{% trans "Register for an account" %}{% endblock %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+      <div class="container">
+
+
+      </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<form method="POST" action=".">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="{% trans 'Submit' %}" />
+</form>
+{% endblock %}
+
+

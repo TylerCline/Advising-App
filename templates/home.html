@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+<style>
+{% block style %}
+.jumbotron {
+   background-color:#0E3D14;
+   color: #FFF;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+  background: -color:#0E3D14;
+  color: #FFF;
+}
+{% endblock %}
+</style>
+{% block jumbotron %}
+<div class="jumbotron">
+      <div class="container">
+        <h1>Advising Web App</h1>
+        <p>This app is for returning and prospective Russ College Students who want insight into what their major has in store. </p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button"> Details &raquo;</a></p>
+      </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+        {% if request.user.is_authenticated and not request.user.is_anonymous %}
+          <h2>Update taken courses</h2>
+          <p>Update your current profile of courses </p>
+        {% else %}
+          <h2>Sign Up</h2>
+          <p>Sign Up to use the advising app. </p>
+        {% endif %}
+          {% if request.user.is_authenticated %}
+          <p><a class="btn btn-default" href="{% url 'student' %}" role="button">View details &raquo;</a></p>
+          {% else %}
+          <p><a class="btn btn-default" href="{% url 'auth_login' %}" role="button">View details &raquo;</a></p>
+          {% endif %}
+        </div>
+        <div class="col-md-4">
+          <h2>Degrees</h2>
+          <p>List of all degrees offered by Russ College with descriptions </p>
+          <p><a class="btn btn-default" href="{% url 'degree' %}" role="button">View details &raquo;</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Course Browser</h2>
+          <p>Browser for different courses offered by Russ College and an Overview of courses needed to obtain engineering degrees.</p>
+          <p><a class="btn btn-default" href="{% url 'courses' %}" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Created by Tyler Cline</p>
+      </footer>
+    </div> <!-- /container -->
+{% endblock %}

@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% block jumbotron %}
+<style>
+{% block style %}
+.jumbotron {
+   background-color:#0E3D14;
+   color: #FFF;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+  background: -color:#0E3D14;
+  color: #FFF;
+}
+{% endblock %}
+</style>
+<div class="jumbotron">
+<div class="container">
+
+{% if request.user.is_authenticated %}
+	<html>
+	<body>
+	<h1>Student Report</h1>
+	<div class="col-sm-6 pull-left">
+	{% for obj in advisor_data %}
+	 <h2>Student ID: {{obj.PID}} </h2></br>
+	 {% endfor %}
+
+
+	 <h3>Major Credits Taken: {{ taken_credit }} </h3></br>
+   <h3>Gen Ed Credits Taken: {{ genEd }} </h3></br>
+   <h3>Total Earned: {{ total_taken }} </h3></br></br>
+
+	 Degree Tiers Taken</br> -------------------------------------------</br>
+	{% for obj in advisor_data %}
+
+	  {% if obj.Tier1jc == True %}
+   		<li>Tier 1 Junior Composition</li></br>
+
+    {% endif %}
+
+    {% if obj.Tier1qs == True %}
+   		<li>Tier 1 Quantatative Skills</li></br>
+    {% endif %}
+
+    {% if obj.Tier1comp %}
+   		<li>Tier 1 Freshman Composiion</li></br>
+    {% endif %}
+
+    {% if obj.ScienceMath == True %}
+   		<li>Tier 2 Science/Mathematics</li></br>
+   	{% endif %}
+
+   	{% if obj.SocialScience == True %}
+   		<li>Tier 2 Social Science</li></br>
+   	{% endif %}
+
+   	{% if obj.Humanitites == True %}
+   		<li>Tier 2 Humanitites and Literature</li></br>
+   	{% endif %}
+
+   	{% if obj.CrossCulture == True %}
+   		<li>Tier 2 Cross Cultural Perspective</li></br>
+   	{% endif %}
+
+   	{% if obj.FineArts == True %}
+   		<li>Tier 2 Fine Arts</li></br>
+   	{% endif %}
+
+   	{% if obj.NaturalScience == True %}
+   		<li>Tier 2 Natural Science</li> </br>
+   	{% endif %}
+
+   	{% if obj.FreeElectives == True %}
+   		<li>Free Electives</li></br>
+   	{% endif %}
+
+   	{% if obj.Tier3 == True %}
+   		<li>Tier 3</li></br>
+   	{% endif %}
+   </li>
+   </br></br>
+   {% endfor %}
+
+   {% for obj in advisor_data %}
+	 Degree Courses Taken </br> -------------------------------------------</br> 
+		{% for Course_Title in obj.Course_Title.all %}
+			<li>{{ Course_Title }} </li>
+		{% endfor %}
+	
+	{% endfor %}
+	</body>
+	</html>  
+	</div>
+
+	<div class="col-sm-6 pull-right">
+	{% for name in student %}
+		<h2>Student Name: {{name.Fname}} {{name.Lname}} </h2></br>
+	{% endfor %}
+
+	<h3>Major Credits Left: {{ credit_left }} </h3></br>
+  <h3>Gen Ed Credits Left: {{ genEd_needed }} </h3></br>
+  <h3>Total Left: {{ total_left }} </h3></br></br>
+	Degree Tiers Needed</br> -------------------------------------------</br>
+	{% for obj in advisor_data %}
+
+	{% if obj.Tier1jc == False %}
+   		<li>Tier 1 Junior Composition</li></br>
+    {% endif %}
+
+    {% if obj.Tier1qs == False %}
+   		<li>Tier 1 Quantatative Skills</li></br>
+    {% endif %}
+
+    {% if obj.Tier1comp == False%}
+   		<li>Tier 1 Freshman Composiion:</li></br>
+    {% endif %}
+
+    {% if obj.ScienceMath == False %}
+   		<li>Tier 2 Science/Mathematics</li></br>
+   	{% endif %}
+
+   	{% if obj.SocialScience == False %}
+   		<li>Tier 2 Social Science</li></br>
+   	{% endif %}
+
+   	{% if obj.Humanitites == False %}
+   		<li>Tier 2 Humanitites and Literature</li></br>
+   	{% endif %}
+
+   	{% if obj.CrossCulture == False %}
+   		<li>Tier 2 Cross Cultural Perspective</li></br>
+   	{% endif %}
+
+   	{% if obj.FineArts == False %}
+   		<li>Tier 2 Fine Arts</li></br>
+   	{% endif %}
+
+   	{% if obj.NaturalScience == False %}
+   		<li>Tier 2 Natural Science</li></br>
+   	{% endif %}
+
+   	{% if obj.FreeElectives == False %}
+   		<li>Free Electives</li></br>
+   	{% endif %}
+
+   	{% if obj.Tier3 == False %}
+   		<li>Tier 3</li></br>
+   	{% endif %}
+   </li>
+   </br>
+   {% endfor %}
+
+	Courses Needed Towards Degree</br> -------------------------------------------</br>
+		{% for obj2 in other %}
+					<li>{{obj2}}</li>
+
+	{% endfor %}
+  </br>
+	</div>
+
+{% else %}
+	<html>
+		<body>Not Registered
+		<a href='{% url "registration_register" %}'>Create account</a> or
+		<a href='{% url "auth_login" %}'>login</a>
+		to view your report.
+ 		</body>
+ 	</html>
+{% endif %}
+</div>
+</div>
+{% endblock %}    
+
+  {% block content %}
+    {% if request.user.is_authenticated %}
+     <h1> Total Years Left: {{ years_left }}</h1>
+     <h1> Total Semesters Left: {{ semesters_left }} </h1>
+    {% endif %}
+  {% endblock %}

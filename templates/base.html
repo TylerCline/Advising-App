@@ -1,0 +1,54 @@
+<!-- This file is used as a base for all other templates
+This project utilizes bootstrap and django registration redux for
+the UI and creation of registration profiles respectively. All CSS files,
+Images, and Javascript files are stored in the static files directory and
+the static file settings are in settings.py
+Author: Tyler Cline     Ohio university 2016 -->
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Advising App </title>
+    <!-- Bootstrap core CSS -->
+    {% include 'head_css.html' %}
+
+
+    <style>
+    {% block style %}
+    {% endblock %}
+    </style>
+  </head>
+
+  <body role='document'>
+
+    <!-- Fixed navbar -->
+    {% include 'navbar.html' %}
+
+
+    <div class="container theme-showcase" role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+
+    <!-- Inheritence block for the jumbotron on each page -->
+    {% block jumbotron %}
+    {% endblock %}
+
+    <!-- Content that will be displayed under the jumbotron -->
+    {% block content %}
+    {% endblock %}
+
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    {% include 'javascript.html' %}
+  </body>
+</html>
