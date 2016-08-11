@@ -193,8 +193,8 @@ def degree(request):
 	if query:
 		queryset_list = queryset_list.filter(
 			Q(TITLE__icontains=query) |
-			Q(About__icontains=query) |
-			Q(Deparment_Name__icontains=query)
+			Q(About__icontains=query) #|
+			# Q(Deparment_Name__icontains=query)
 			).distinct()
 	context = {
 		"degree_data": queryset_list,
@@ -210,8 +210,7 @@ def courses(request):
 			Q(TITLE__icontains=query) |
 			Q(Type__icontains=query) |
 			Q(Name__icontains=query) |
-			Q(Tier__icontains=query) |
-			Q(discription__icontains=query)
+			Q(Tier__icontains=query) 
 			).distinct()
 	queryset = Courses.objects.filter(Tier='CS-Requirement')
 	context = {

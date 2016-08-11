@@ -40,18 +40,14 @@ def validate_Cname(title):
 #Server Side input validate.
 #*******************************
 def validate_Dname(title):
-	names = ['Computer Science', 'Electical Engineering', 
-	         'Computer Engineeriexng', 'Chemical Engineering',
+	names = ['Computer Science', 'Electrical Engineering', 
+	         'Computer Engineering', 'Chemical Engineering',
 	         'Civil Engineering', 'Mechanical Engineering',
-	         'Industrial Systems Engineering', 
-	         'Engineering Technology Management', 'NULL']
-	matched = False
-	for i in range(0, len(names)):
-		if title == names[i]:
-			matched = True
-		elif i == len(names) and matched == False:
-			raise ValidationError(
-            _('%(title)s is not a degree offered by Russ College'),
+	         'Industrial and Systems Engineering', 
+	         'Engineering Technology and Management', 'Aviation Flight']
+	if title not in names:
+		raise ValidationError(
+            _('%(title)s is not a degree offered by Russ College. Choices are Computer Science, Electrical Engineering, Computer Engineering, Chemical Engineering, Civil Engineering, Mechanical Engineering, Industrial and Systems Engineering, Engineering Technology and Management, Aviation Flight'),
             params={'title': title},
         )
 
@@ -138,7 +134,7 @@ class Degrees(models.Model):
 
 #Database table to hold course prerequisites
 class Prerequisites(models.Model):
-	TITLE = models.CharField(max_length=10, primary_key=True, validators=[validate_Cname])
+	TITLE = models.CharField(max_length=10, primary_key=True)
 	Course = models.ForeignKey('Courses', on_delete=models.CASCADE)
 
 #Database table to hold individual course information
@@ -181,4 +177,4 @@ class chooses(models.Model):
 #database table to hold what courses a degree contains.
 class contains(models.Model):
 	Course_Title = models.CharField(max_length=100)
-	Degree_Title = models.CharField(max_length=100)
+	Degree_Title = models.CharField(max_length=100, validators=[validate_Dname])

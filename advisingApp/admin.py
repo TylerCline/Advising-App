@@ -40,7 +40,7 @@ class StudentAdmin(admin.ModelAdmin):
 		model = Students
 
 class DegreeAdmin(admin.ModelAdmin):
-	list_display = ['TITLE', 'About', 'Requiured_Credits', 'Deparment_Name']
+	list_display = ['TITLE', 'Requiured_Credits', 'Deparment_Name']
 	list_display_links = ['TITLE']
 	list_filter = ['TITLE', 'Deparment_Name']
 	search_fields = ['TITLE']
